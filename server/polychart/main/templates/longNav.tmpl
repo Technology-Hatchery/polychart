@@ -1,0 +1,71 @@
+{% load staticfiles %}
+
+{% block navigation %}
+<nav class="topbar">
+  <ul class="cf">
+    <section id="navPages">
+      <li id="company">
+        <a class="withDropArrow">
+          Company
+          <div class="dropArrow"></div>
+        </a>
+      </li>
+    </section>
+    <section id="navActions">
+      {% if user.is_authenticated %}
+      <li id="workspace">
+        <a href="/home">Login</a>
+      </li>
+      <li id="settings">
+        <a class="btnIcon withDropArrow">
+          <img class="btnIcon" src="{% static 'common/images/settings.png' %}" />
+          <div class="dropArrow"></div>
+        </a>
+      </li>
+      {% else %}
+      <li id="signup"><a href="/signup">
+          Signup
+      </a></li>
+      <li id="login"><a href="/login">Login</a></li>
+      {% endif %}
+    </section>
+    <section id="navPagesCondensed">
+      <li>
+        <a class="btnIcon navBarsIcon withDropArrow">
+          <div class="iconPart"></div>
+          <div class="iconPart"></div>
+          <div class="iconPart"></div>
+          <div class="dropArrow"></div>
+        </a>
+      </li>
+    </section>
+  </ul>
+</nav>
+<nav class="dropdown hidden" id="settingsDrop">
+  <ul>
+    <li><a href="/plans">Pricing Plans</a></li>
+    {% if user.is_authenticated %}
+    <li><a href="/settings">Account Settings</a></li>
+    <li>{% include logout.tmpl %}</li>
+    {% endif %}
+  </ul>
+  <div class="nub">
+  </div>
+</nav>
+<nav class="dropdown hidden" id="companyDrop">
+  <ul>
+    <li><a href="/about">About</a></li>
+    <li><a href="/press">In The Press</a></li>
+  </ul>
+  <div class="nub">
+  </div>
+</nav>
+<nav class="dropdown hidden" id="condensedDrop">
+  <ul>
+    <li><a href="/about">About</a></li>
+    <li><a href="/press">In The Press</a></li>
+  </ul>
+  <div class="nub">
+  </div>
+</nav>
+{% endblock %}

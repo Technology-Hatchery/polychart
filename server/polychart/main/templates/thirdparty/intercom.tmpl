@@ -1,0 +1,24 @@
+{% if user.is_authenticated and settings.INTERCOM_ENABLED and not userInfo.is_internal %}
+  <script id="IntercomSettingsScriptTag">
+    var oldSettings = window.intercomSettings;
+    window.intercomSettings = {
+      app_id: "f174115f6bbeb7e4560933937d75022578135765",
+
+      server_id: "{{ settings.HOST_URL|escapejs }}",
+      user_id: "{{ userInfo.global_unique_id|escapejs }}",
+      user_hash: "{{ userInfo.intercom_hash|escapejs }}",
+
+      email: "{{ user.email|escapejs }}",
+      created_at: "{{ user.date_joined|escapejs }}",
+      name: "{{ userInfo.full_name|escapejs }}",
+      phone: "{{ userInfo.phone|escapejs }}",
+      company_name: "{{ userInfo.company|escapejs }}",
+      title: "{{ userInfo.title|escapejs }}",
+      is_technical: "{{ userInfo.is_technical|escapejs }}",
+    };
+    for (var x in oldSettings) {
+      window.intercomSettings[x] = oldSettings[x];
+    }
+  </script>
+  <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://static.intercomcdn.com/intercom.v1.js';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}};})()</script>
+{% endif %}
